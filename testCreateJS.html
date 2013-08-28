@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="easeljs-0.6.1.min.js"></script>
+    <style>
+        #canvas{
+            width:400;
+            height:400;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
+        <script>
+            //Draw a square on screen.
+//            var canvas = document.getElementById('canvas');
+//            var stage = new createjs.Stage(canvas);
+//            var shape = new createjs.Shape();
+//            shape.graphics.beginFill('rgba(255,0,0,1)').drawRoundRect(0, 0, 120, 120, 10);
+//            stage.addChild(shape);
+//            stage.update();
+//
+//            var ss = new createjs.SpriteSheet({
+//                "frames": {
+//                    "width": 200,
+//                    "numFrames": 64,
+//                    "regX": 2,
+//                    "regY": 2,
+//                    "height": 361
+//                },
+//                "animations": {"jump": [26, 63], "run": [0, 25]},
+//                "images": ["xh2.png"]
+//            });
+//
+//            ss.getAnimation("run").speed = 10;
+//            ss.getAnimation("run").next = "jump";
+//            ss.getAnimation("jump").next = "run";
+//
+//            var sprite = new createjs.Sprite(ss, "run");
+//            sprite.scaleY = sprite.scaleX = 0.4;
+//
+//            createjs.Ticker.setFPS(60);
+//            createjs.Ticker.addEventListener("tick", stage);
+//            stage.addChild(sprite);
+
+            /*var s = new createjs.Shape();
+            var g = s.graphics;
+
+            //头
+            g.ss(15, 'round', 'round').s("#000").f("#F00").dc(170, 170, 170).ef().ss(1, 'round', 'round');
+
+            //右眼
+            g.ss(5, 'round', 'round').s("#000").f("#000").rr(125, 64, 20, 50, 10).ef();
+
+            //左眼
+            g.ss(5, 'round', 'round').s("#000").f("#000").rr(200, 64, 20, 50, 10).ef();
+
+            //嘴巴
+            g.ss(15, 'round', 'round').s("#000").mt(45, 155).bt(83, 307, 254, 317, 296, 152);
+*/
+            /*
+            * //头
+             g.setStrokeStyle(15, 'round', 'round').beginStroke("#000").beginFill("#F00").drawCircle(170, 170, 170).endFill().setStrokeStyle(1, 'round', 'round');
+
+             //右眼
+             g.setStrokeStyle(5, 'round', 'round').beginStroke("#000").beginFill("#000").drawRoundRect(125, 64, 20, 50, 10).endFill();
+
+             //左眼
+             g.setStrokeStyle(5, 'round', 'round').beginStroke("#000").beginFill("#000").drawRoundRect(200, 64, 20, 50, 10).endFill();
+
+             //嘴巴
+             g.setStrokeStyle(15, 'round', 'round').beginStroke("#000").moveTo(45, 155).bezierCurveTo(83, 307, 254, 317, 296, 152);
+            * */
+            // 创建场景，并把笑脸画在场景上
+            /*var myCanvas = document.getElementById('canvas');
+            myCanvas.height = 400;
+            myCanvas.width = 400;
+            var myStage = new createjs.Stage(myCanvas);
+            s.x = 50;
+            s.y = 50;
+            myStage.addChild(s);
+            myStage.update();*/
+
+
+
+            var canvas = document.getElementById('canvas');
+            var stage = new createjs.Stage(canvas);
+            var shape = new createjs.Shape();
+            var shape2 = new createjs.Shape();
+            var graphic = shape.graphics;
+            var graphic2 = shape2.graphics;
+            var count = 0;//计数器
+
+            shape.graphics.beginFill('rgba(255,0,0,1)').drawRoundRect(0, 0, 120, 120, 10);
+
+            graphic.ss(15, 'round', 'round').s("#000").f("#F00").dc(170, 170, 170).ef().ss(1, 'round', 'round');
+
+            // 定义一个图片精灵，注：这个数据是Zoë导出的。
+            var ss = new createjs.SpriteSheet({
+                "images": ["Smoke.png"],
+                "animations": {
+                    "jump": [10, 19],
+                    "boom": [0, 9]
+                },
+                "frames": {
+                    "height": 94,
+                    "regX": 0,
+                    "count": 20,
+                    "regY": 0,
+                    "width": 96
+                }
+            });
+
+            // 创建一个位图动画的实例
+            var grant = new createjs.BitmapAnimation(ss);
+            grant.x = 10;
+            grant.y = 10;
+            grant.gotoAndPlay("jump");
+
+            //添加文字
+            var txt = new createjs.Text('test createJS...','36px Arial','#EEE');
+            txt.x = 10;
+            txt.y = 10;
+            txt.rotation = 0;
+
+            //动起来！
+            createjs.Ticker.setFPS(1);
+            createjs.Ticker.addEventListener("tick", tick);
+
+            function tick(){//debugger;
+                count++;
+                if(count%10 === 0){
+                    txt.rotation += txt.rotation + count;
+                }
+                txt.text = 'test createJS...' + count + '!';
+                graphic2.clear().beginFill('#0F0').rect(-10,-10,txt.getMeasuredWidth()+20,36+20);
+                stage.update();//?
+            }
+
+            //Canvas画图
+            var context = canvas.getContext("2d");
+            context.moveTo(10,10);
+            context.lineTo(200,100);
+            context.stroke();
+
+            //添加元素到场景上
+            stage.addChild(shape);
+            stage.addChild(grant);
+            stage.addChild(txt);
+
+        </script>
